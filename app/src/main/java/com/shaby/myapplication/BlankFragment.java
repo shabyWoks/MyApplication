@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -19,7 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  */
 public class BlankFragment extends Fragment  implements OnMapReadyCallback {
 
-
+    GoogleMap mMap;
     SupportMapFragment mapFragment;
     public BlankFragment() {
         // Required empty public constructor
@@ -45,6 +49,16 @@ public class BlankFragment extends Fragment  implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap= googleMap;
 
+        LatLng latLng= new LatLng(22.5, 88.7);
+        MarkerOptions markerOptions= new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        markerOptions.title("Current Position");
+        markerOptions.snippet("My Position");
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.addMarker(markerOptions);
     }
 }
